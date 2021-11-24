@@ -22,15 +22,15 @@ import (
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
-	"github.com/spf13/viper"
 	log "github.com/sirupsen/logrus"
+	"github.com/spf13/viper"
 )
 
 var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "elbroute53",
+	Use:   "findr53",
 	Short: "A brief description of your application",
 	Long: `A longer description that spans multiple lines and likely contains
 examples and usage of using your application. For example:
@@ -59,7 +59,7 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.elbroute53.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.findr53.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -79,10 +79,10 @@ func initConfig() {
 			os.Exit(1)
 		}
 
-		// Search config in home directory with name ".elbroute53" (without extension).
+		// Search config in home directory with name ".findr53" (without extension).
 		viper.AddConfigPath(home)
 		viper.AddConfigPath(".")
-		viper.SetConfigName(".elbroute53.yaml")
+		viper.SetConfigName(".findr53.yaml")
 		viper.SetConfigType("yaml")
 	}
 
@@ -91,9 +91,9 @@ func initConfig() {
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err != nil {
 		//fmt.Println("Using config file:", viper.ConfigFileUsed())
-			// handle error
-			log.WithFields(log.Fields{
-				"err": err,
-			}).Fatal("Can't read in config")
+		// handle error
+		log.WithFields(log.Fields{
+			"err": err,
+		}).Fatal("Can't read in config")
 	}
 }

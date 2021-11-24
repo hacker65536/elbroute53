@@ -1,4 +1,4 @@
-module github.com/hacker65536/elbroute53
+module github.com/hacker65536/findr53
 
 go 1.17
 

@@ -19,7 +19,7 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/hacker65536/elbroute53/cmd"
+	"github.com/hacker65536/findr53/cmd"
 )
 
 func main() {
