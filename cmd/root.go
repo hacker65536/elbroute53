@@ -22,7 +22,6 @@ import (
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
-	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
@@ -82,18 +81,17 @@ func initConfig() {
 		// Search config in home directory with name ".findr53" (without extension).
 		viper.AddConfigPath(home)
 		viper.AddConfigPath(".")
-		viper.SetConfigName(".findr53.yaml")
+		viper.SetConfigName(".findr53")
 		viper.SetConfigType("yaml")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
 
 	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err != nil {
-		//fmt.Println("Using config file:", viper.ConfigFileUsed())
-		// handle error
-		log.WithFields(log.Fields{
-			"err": err,
-		}).Fatal("Can't read in config")
-	}
+	viper.ReadInConfig()
+	/*
+		if err := viper.ReadInConfig(); err == nil {
+			fmt.Println("Using config file:", viper.ConfigFileUsed())
+		}
+	*/
 }
