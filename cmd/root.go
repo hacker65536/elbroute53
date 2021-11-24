@@ -19,6 +19,7 @@ import (
 	"fmt"
 	"os"
 
+	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"
@@ -52,6 +53,7 @@ func Execute() {
 }
 
 func init() {
+	//log.SetLevel(log.DebugLevel)
 	cobra.OnInitialize(initConfig)
 
 	// Here you will define your flags and configuration settings.
@@ -88,10 +90,10 @@ func initConfig() {
 	viper.AutomaticEnv() // read in environment variables that match
 
 	// If a config file is found, read it in.
-	viper.ReadInConfig()
-	/*
-		if err := viper.ReadInConfig(); err == nil {
-			fmt.Println("Using config file:", viper.ConfigFileUsed())
-		}
-	*/
+	if err := viper.ReadInConfig(); err != nil {
+		//fmt.Println("Using config file:", viper.ConfigFileUsed())
+		log.WithFields(log.Fields{
+			"err": err,
+		}).Debug("Can't find config file")
+	}
 }
