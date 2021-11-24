@@ -45,7 +45,9 @@ to quickly create a Cobra application.`,
 		reg := regexp.MustCompile(`/hostedzone/(.*)`)
 		cfg, err := config.LoadDefaultConfig(context.TODO())
 		if err != nil {
-			log.Fatalf("unable to load SDK config, %v", err)
+			log.WithFields(log.Fields{
+				"err": err,
+			}).Fatal("unable to load SDK config")
 		}
 
 		svc := route53.NewFromConfig(cfg)
@@ -66,7 +68,7 @@ to quickly create a Cobra application.`,
 		for _, zone := range resp.HostedZones {
 			fmt.Fprintf(w, "%s\t%s\t%d\t%s\n", aws.ToString(zone.Name),
 				func() string {
-					if zone.Config.PrivateZone != true {
+					if !zone.Config.PrivateZone {
 						return "public"
 					}
 					return "private"
