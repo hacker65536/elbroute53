@@ -77,6 +77,10 @@ func ListElbs() {
 		output2, err := p2.NextPage(context.TODO())
 		if err != nil {
 			// handle error
+
+			log.WithFields(log.Fields{
+				"err": err,
+			}).Fatal("Can't list elbv2")
 		}
 		for _, lbs2 := range output2.LoadBalancers {
 			PrintRow(w, PaintRow(colors, []string{
@@ -98,6 +102,9 @@ func ListElbs() {
 		output1, err := p1.NextPage(context.TODO())
 		if err != nil {
 			// handle error
+			log.WithFields(log.Fields{
+				"err": err,
+			}).Fatal("Can't list clb")
 		}
 		for _, lbs1 := range output1.LoadBalancerDescriptions {
 			PrintRow(w, PaintRow(colors, []string{

@@ -76,7 +76,9 @@ func ListDBs() {
 	for paginator.HasMorePages() {
 		output, err := paginator.NextPage(context.TODO())
 		if err != nil {
-			// handle error
+			log.WithFields(log.Fields{
+				"err": err,
+			}).Fatal("Can't list db-instances")
 		}
 		colors := []Color{DefaultText, DefaultText, DefaultText}
 		for _, dbs := range output.DBInstances {

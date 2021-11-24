@@ -23,6 +23,7 @@ import (
 
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
+	log "github.com/sirupsen/logrus"
 )
 
 var cfgFile string
@@ -88,7 +89,11 @@ func initConfig() {
 	viper.AutomaticEnv() // read in environment variables that match
 
 	// If a config file is found, read it in.
-	if err := viper.ReadInConfig(); err == nil {
+	if err := viper.ReadInConfig(); err != nil {
 		//fmt.Println("Using config file:", viper.ConfigFileUsed())
+			// handle error
+			log.WithFields(log.Fields{
+				"err": err,
+			}).Fatal("Can't read in config")
 	}
 }
